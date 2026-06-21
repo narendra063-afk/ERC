@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>विद्युत नियमन आयोग — Powering Nepal's Grid Forward</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c1b1c;
+    --surface:#122728;
+    --surface2:#193434;
+    --surface3:#1f3e3e;
+    --line: rgba(242,239,230,0.12);
+    --cream:#f2efe6;
+    --mist: rgba(242,239,230,0.62);
+    --mist-dim: rgba(242,239,230,0.38);
+    --teal:#34b3a3;
+    --teal-dim: rgba(52,179,163,0.18);
+    --amber:#f2a93c;
+    --amber-dim: rgba(242,169,60,0.16);
+    --indigo:#5b6bb8;
+    --rust:#d97456;
+    --rust-dim: rgba(217,116,86,0.18);
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 24px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--amber); color:var(--ink); }
+  .deva{ font-family:'Noto Sans Devanagari','Inter',sans-serif; }
+
+  h1,h2,h3,h4{ font-family:'Fraunces',serif; font-weight:600; margin:0; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:0.72rem;
+    color:var(--teal);
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--teal); display:inline-block; }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  a{ color:inherit; }
+
+  /* ---------- layout shell ---------- */
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  section{ padding:110px 0; border-bottom:1px solid var(--line); position:relative; }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ max-width:680px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(1.9rem,3.4vw,2.7rem); margin-top:14px; }
+  .section-head p{ color:var(--mist); margin-top:16px; font-size:1.02rem; max-width:560px; }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(12,27,28,0.78);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{ max-width:1180px; margin:0 auto; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:0.82rem; letter-spacing:0.04em; color:var(--cream); }
+  .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--amber); box-shadow:0 0 12px var(--amber); }
+  .navlinks{ display:flex; gap:26px; font-size:0.82rem; color:var(--mist); flex-wrap:wrap; }
+  .navlinks a{ text-decoration:none; transition:color .2s; white-space:nowrap; }
+  .navlinks a:hover{ color:var(--amber); }
+  @media (max-width:920px){ .navlinks{ display:none; } }
+
+  /* ---------- hero ---------- */
+  #hero{ padding-top:170px; padding-bottom:90px; overflow:hidden; border-bottom:1px solid var(--line); }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; }
+  @media (max-width:920px){ .hero-grid{ grid-template-columns:1fr; } }
+  .hero-title{ font-size:clamp(2.6rem,5.2vw,4.4rem); line-height:1.04; }
+  .hero-title .accent{ color:var(--teal); }
+  .hero-sub{ color:var(--mist); font-size:1.08rem; max-width:520px; margin-top:22px; }
+  .hero-meta{ display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:36px; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--mist-dim); }
+  .hero-meta b{ color:var(--cream); font-weight:500; }
+  .hero-stage{ position:relative; aspect-ratio: 1/1.02; }
+  .hero-counter{ margin-top:38px; display:flex; gap:34px; flex-wrap:wrap; }
+  .hc-item .num{ font-family:'Fraunces',serif; font-size:2rem; color:var(--amber); }
+  .hc-item .lbl{ font-size:0.74rem; color:var(--mist-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:2px; }
+
+  /* ---------- buttons / pills / tabs ---------- */
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+    font-size:0.74rem; font-family:'IBM Plex Mono',monospace; color:var(--mist);
+  }
+  .tabbar{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:30px; }
+  .tabbtn{
+    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.02em;
+    padding:10px 16px; border-radius:999px; border:1px solid var(--line);
+    background:transparent; color:var(--mist); cursor:pointer; transition:all .2s;
+  }
+  .tabbtn:hover{ color:var(--cream); border-color:var(--teal); }
+  .tabbtn.active{ background:var(--teal); color:var(--ink); border-color:var(--teal); font-weight:600; }
+
+  /* ---------- cards ---------- */
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg);
+    padding:30px;
+  }
+  .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .grid-4{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  @media (max-width:900px){ .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; } }
+
+  /* ---------- sliders ---------- */
+  .control{ margin-bottom:20px; }
+  .control-label{ display:flex; justify-content:space-between; align-items:baseline; font-size:0.84rem; margin-bottom:9px; }
+  .control-label .name{ color:var(--mist); }
+  .control-label .val{ font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:0.86rem; }
+  input[type=range]{
+    -webkit-appearance:none; appearance:none; width:100%; height:4px;
+    background:var(--line); border-radius:4px; outline:none; cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:16px; height:16px; border-radius:50%;
+    background:var(--teal); border:3px solid var(--ink); box-shadow:0 0 0 1px var(--teal); cursor:pointer;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:16px; height:16px; border-radius:50%; background:var(--teal); border:3px solid var(--ink); box-shadow:0 0 0 1px var(--teal); cursor:pointer;
+  }
+
+  /* ---------- generic viz bits ---------- */
+  .statline{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line); font-size:0.9rem; }
+  .statline:last-child{ border-bottom:none; }
+  .statline .v{ font-family:'IBM Plex Mono',monospace; color:var(--cream); }
+  .barwrap{ height:10px; border-radius:6px; background:var(--surface3); overflow:hidden; margin-top:6px; }
+  .barfill{ height:100%; border-radius:6px; transition:width .35s ease; }
+
+  .footnote{ font-size:0.76rem; color:var(--mist-dim); margin-top:10px; }
+
+  /* timeline / gantt */
+  .gantt-row{ display:grid; grid-template-columns:200px 1fr; gap:18px; align-items:center; margin-bottom:18px; }
+  .gantt-track{ position:relative; height:30px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .gantt-bar{ position:absolute; top:0; bottom:0; border-radius:8px; transition:all .3s ease; display:flex; align-items:center; padding-left:10px; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; white-space:nowrap; overflow:hidden; }
+  .gantt-axis{ display:grid; grid-template-columns:200px 1fr; gap:18px; margin-bottom:10px; }
+  .gantt-axis-ticks{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:0.66rem; color:var(--mist-dim); }
+
+  /* footer */
+  footer{ padding:60px 0 50px; }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:flex-end; }
+  footer p{ color:var(--mist-dim); font-size:0.8rem; max-width:520px; }
+
+  .reset-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--mist);
+    background:transparent; border:1px solid var(--line); border-radius:8px; padding:8px 14px; cursor:pointer;
+  }
+  .reset-btn:hover{ color:var(--amber); border-color:var(--amber); }
+
+  .badge{ display:inline-block; padding:3px 9px; border-radius:6px; font-size:0.68rem; font-family:'IBM Plex Mono',monospace; }
+  .badge.incentive{ background:var(--teal-dim); color:var(--teal); }
+  .badge.penalty{ background:var(--rust-dim); color:var(--rust); }
+  .badge.neutral{ background:var(--amber-dim); color:var(--amber); }
+
+  details.src{ margin-top:6px; }
+  details.src summary{ cursor:pointer; font-size:0.72rem; color:var(--mist-dim); font-family:'IBM Plex Mono',monospace;}
+
+  .num-list{ counter-reset:n; list-style:none; padding:0; margin:0; }
+  .num-list li{ counter-increment:n; padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:16px; }
+  .num-list li:last-child{ border-bottom:none; }
+  .num-list li::before{ content: counter(n,decimal-leading-zero); font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:0.8rem; padding-top:2px; }
+
+  .icon-chip{ width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--teal-dim); flex-shrink:0; }
+
+  .gauge-wrap{ display:flex; flex-direction:column; align-items:center; }
+  .gauge-readout{ font-family:'Fraunces',serif; font-size:2.4rem; margin-top:-58px; }
+  .gauge-label{ font-size:0.74rem; color:var(--mist-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;}
+
+  .toggle-row{ display:flex; gap:10px; margin-bottom:24px; }
+  .toggle-btn{ flex:1; padding:12px; border-radius:10px; border:1px solid var(--line); background:var(--surface2); color:var(--mist); cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; transition:all .2s; }
+  .toggle-btn.active{ background:var(--teal); color:var(--ink); border-color:var(--teal); font-weight:600; }
+
+  .spectrum-track{ position:relative; height:6px; background:var(--surface3); border-radius:4px; margin:34px 0 10px; }
+  .spectrum-dot{ position:absolute; top:50%; width:16px; height:16px; border-radius:50%; transform:translate(-50%,-50%); transition:left .5s cubic-bezier(.4,1.4,.4,1); border:3px solid var(--ink); }
+  .spectrum-tag{ position:absolute; top:-30px; transform:translateX(-50%); font-family:'IBM Plex Mono',monospace; font-size:0.66rem; white-space:nowrap; transition:left .5s; }
+  .spectrum-ends{ display:flex; justify-content:space-between; font-size:0.68rem; color:var(--mist-dim); font-family:'IBM Plex Mono',monospace; }
+
+  .risk-card{ border-left:3px solid var(--rust); padding-left:18px; }
+
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .chip{ font-size:0.7rem; font-family:'IBM Plex Mono',monospace; padding:5px 10px; border:1px solid var(--line); border-radius:999px; color:var(--mist); }
+
+  /* ---------- dam / powerhouse rig ---------- */
+  #dam{ background:linear-gradient(180deg,var(--ink) 0%, #0a1718 100%); }
+  .rig-shell{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:8px 8px 28px; }
+  .rig-stage{ width:100%; height:auto; display:block; }
+  .rig-controls{ padding:0 30px; }
+  .preset-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+  .preset-btn{
+    flex:1; min-width:140px; padding:14px 16px; border-radius:12px; border:1px solid var(--line);
+    background:var(--surface2); color:var(--cream); cursor:pointer; text-align:left; transition:all .2s;
+  }
+  .preset-btn .pn{ font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--mist-dim); text-transform:uppercase; letter-spacing:0.06em; }
+  .preset-btn .pt{ font-family:'Fraunces',serif; font-size:1.02rem; margin-top:4px; }
+  .preset-btn .pd{ font-size:0.74rem; color:var(--mist); margin-top:4px; }
+  .preset-btn:hover{ border-color:var(--teal); }
+  .preset-btn.active{ border-color:var(--amber); background:rgba(242,169,60,0.08); }
+  .preset-btn.active .pn{ color:var(--amber); }
+
+  .readout-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:26px 0; }
+  @media (max-width:900px){ .readout-row{ grid-template-columns:repeat(2,1fr);} }
+  .readout{ background:var(--surface2); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .readout .rl{ font-size:0.68rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--mist-dim); font-family:'IBM Plex Mono',monospace; }
+  .readout .rv{ font-family:'Fraunces',serif; font-size:1.6rem; margin-top:6px; }
+  .readout .rv.warn{ color:var(--rust); }
+  .readout .rv.ok{ color:var(--teal); }
+  .readout .rv.tight{ color:var(--amber); }
+
+  .turbine-blade{ transform-origin:600px 318px; animation:spin 4s linear infinite; }
+  .gen-coil{ transform-origin:660px 318px; animation:spin 2.6s linear infinite reverse; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .flow-dash{ stroke-dasharray:6 10; animation:dashmove 1.2s linear infinite; }
+  @keyframes dashmove{ to{ stroke-dashoffset:-32; } }
+  .spark{ animation:flicker 1.1s ease-in-out infinite; }
+  @keyframes flicker{ 0%,100%{ opacity:0.25; } 50%{ opacity:1; } }
+  .gate{ transition: transform 0.6s cubic-bezier(.4,1.6,.4,1); }
+  @media (prefers-reduced-motion: reduce){
+    .turbine-blade,.gen-coil,.flow-dash,.spark{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="navbar">
+    <div class="brand"><span class="dot"></span> ERC NEPAL · विद्युत नियमन आयोग</div>
+    <div class="navlinks">
+      <a href="#dam">Inside the dam</a>
+      <a href="#snapshot">Sector snapshot</a>
+      <a href="#mandate">Mandate</a>
+      <a href="#model">Regulatory model</a>
+      <a href="#priorities">Priorities</a>
+      <a href="#pbr">Performance lab</a>
+      <a href="#innovation">Innovation</a>
+      <a href="#risk">Risk</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Business action plan · ERC member candidacy</div>
+      <h1 class="hero-title">From river<br><span class="accent">to grid.</span><br>Regulating Nepal's<br>power, on purpose.</h1>
+      <p class="hero-sub">An interactive walkthrough of the action plan for Nepal's <b>Electricity Regulatory Commission (ERC)</b> — built from the candidacy document submitted by <b>Narendra Singh Bhandari</b>, Civil Engineer (Hydropower), for the vacant Commission Member seat. Every number below is adjustable — drag the controls to test how the sector responds.</p>
+      <div class="hero-meta">
+        <div><b>Submitted to</b> · Ministry of Energy, Water Resources &amp; Irrigation</div>
+        <div><b>Governing act</b> · Electricity Regulation Commission Act, 2074</div>
+        <div><b>Commission active since</b> · 2076 Baishakh 26</div>
+      </div>
+      <div class="hero-counter">
+        <div class="hc-item"><div class="num" id="heroCap">4,105</div><div class="lbl">MW installed capacity</div></div>
+        <div class="hc-item"><div class="num" id="heroDemand">2,134</div><div class="lbl">MW peak demand</div></div>
+        <div class="hc-item"><div class="num">5.94M</div><div class="lbl">electricity customers</div></div>
+        <div class="hc-item"><div class="num">99%</div><div class="lbl">population electrified</div></div>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <svg viewBox="0 0 480 500" width="100%" height="100%" id="heroSvg" style="overflow:visible">
+        <defs>
+          <linearGradient id="riverGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#34b3a3"/>
+            <stop offset="100%" stop-color="#5b6bb8"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <!-- ridge -->
+        <polygon points="0,150 60,90 110,140 170,60 230,130 290,80 350,150 480,110 480,180 0,180" fill="#193434"/>
+        <polygon points="0,170 70,120 130,160 190,100 250,150 320,110 380,170 480,140 480,200 0,200" fill="#1f3e3e"/>
+        <!-- river -->
+        <path d="M 230 130 C 220 200, 250 240, 235 300 C 222 350, 250 380, 240 430" stroke="url(#riverGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path id="riverFlow" d="M 230 130 C 220 200, 250 240, 235 300 C 222 350, 250 380, 240 430" stroke="#cfeee8" stroke-width="2" fill="none" stroke-dasharray="2 14" stroke-linecap="round" filter="url(#glow)"/>
+        <!-- turbine node -->
+        <circle cx="240" cy="430" r="14" fill="#0c1b1c" stroke="#f2a93c" stroke-width="2.5"/>
+        <circle cx="240" cy="430" r="4" fill="#f2a93c"/>
+        <text x="240" y="466" text-anchor="middle" fill="#f2efe6" font-family="IBM Plex Mono" font-size="11" opacity="0.7">Generation</text>
+        <!-- grid branches -->
+        <g stroke="#5b6bb8" stroke-width="2.4" fill="none" opacity="0.85">
+          <path id="branch1" d="M240 430 L 120 460 L 60 460"/>
+          <path id="branch2" d="M240 430 L 360 455 L 430 440"/>
+          <path id="branch3" d="M240 430 L 240 480"/>
+        </g>
+        <g class="pulse" stroke="#f2a93c" stroke-width="2" fill="none" stroke-dasharray="1 11" filter="url(#glow)">
+          <path d="M240 430 L 120 460 L 60 460"/>
+          <path d="M240 430 L 360 455 L 430 440"/>
+        </g>
+        <circle cx="60" cy="460" r="5" fill="#f2efe6"/>
+        <circle cx="430" cy="440" r="5" fill="#f2efe6"/>
+        <text x="60" y="478" text-anchor="middle" fill="#f2efe6" font-family="IBM Plex Mono" font-size="10" opacity="0.55">Distribution</text>
+        <text x="430" y="458" text-anchor="middle" fill="#f2efe6" font-family="IBM Plex Mono" font-size="10" opacity="0.55">Cross-border</text>
+        <text x="140" y="40" fill="#f2efe6" font-family="IBM Plex Mono" font-size="10" opacity="0.45">Himalaya snowmelt</text>
+      </svg>
+      <style>
+        #riverFlow{ animation: flow 1.8s linear infinite; }
+        .pulse path{ animation: flow 1.4s linear infinite; }
+        @keyframes flow{ to{ stroke-dashoffset:-32; } }
+        @media (prefers-reduced-motion: reduce){ #riverFlow, .pulse path{ animation:none; } }
+      </style>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIDE THE DAM (interactive rig) ============ -->
+<section id="dam">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">From Part C · the physics behind the policy</div>
+      <h2>Inside the dam: water becomes watts.</h2>
+      <p>A representative run-of-river plant — 200 MW design capacity, 100 m head. Push the river's flow up or down and watch the gate, turbine, generator and grid respond in real time. This is the same seasonal swing — heavy monsoon, dry winter — that drives the Commission's storage and wholesale-market priorities.</p>
+    </div>
+
+    <div class="rig-shell">
+      <svg class="rig-stage" viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3fc6b8"/>
+            <stop offset="100%" stop-color="#1d6e66"/>
+          </linearGradient>
+          <linearGradient id="damGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3a4750"/>
+            <stop offset="100%" stop-color="#27323a"/>
+          </linearGradient>
+          <filter id="dglow"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- sky / mountains -->
+        <rect x="0" y="0" width="900" height="460" fill="#0c1b1c"/>
+        <polygon points="0,90 90,30 160,80 230,15 300,75 370,40 900,95 900,0 0,0" fill="#152d2e"/>
+
+        <!-- reservoir -->
+        <rect x="0" y="150" width="330" height="160" fill="url(#waterGrad)" opacity="0.92"/>
+        <path d="M0 150 Q 40 142 80 150 T 160 150 T 240 150 T 330 150" fill="none" stroke="#bfeee6" stroke-width="2" opacity="0.5"/>
+        <text x="20" y="180" fill="#dff5f1" font-family="IBM Plex Mono" font-size="11" opacity="0.65">Reservoir</text>
+
+        <!-- dam wall -->
+        <polygon points="330,90 390,90 410,310 330,310" fill="url(#damGrad)" stroke="#0c1b1c" stroke-width="2"/>
+        <text x="345" y="115" fill="#cfd8da" font-family="IBM Plex Mono" font-size="10" transform="rotate(90 345 115)" opacity="0.5">DAM</text>
+
+        <!-- spillway (top of dam) -->
+        <g id="spillwayGroup">
+          <rect x="330" y="92" width="60" height="14" fill="#1a2a2c"/>
+          <rect id="spillGate" class="gate" x="330" y="92" width="60" height="14" fill="#6b7780" stroke="#0c1b1c" stroke-width="1.5" transform="translate(0,0)"/>
+          <path id="spillWater" d="M395 100 C 430 130, 440 170, 430 230 C 425 260, 440 290, 455 320" fill="none" stroke="#7fe3d3" stroke-width="0" stroke-linecap="round" opacity="0"/>
+        </g>
+        <text id="spillLabel" x="460" y="245" fill="#7fe3d3" font-family="IBM Plex Mono" font-size="10" opacity="0">Spilled water →</text>
+        <text id="spillLabel2" x="460" y="259" fill="#7fe3d3" font-family="IBM Plex Mono" font-size="10" opacity="0">green-hydrogen feedstock</text>
+
+        <!-- penstock -->
+        <path id="penstock" d="M 400 230 C 470 250, 520 280, 575 310" fill="none" stroke="#2a3a3f" stroke-width="22" stroke-linecap="round"/>
+        <path id="penstockFlow" class="flow-dash" d="M 400 230 C 470 250, 520 280, 575 310" fill="none" stroke="#8be9d8" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
+        <text x="455" y="232" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="10">Penstock</text>
+
+        <!-- powerhouse -->
+        <rect x="575" y="300" width="230" height="95" rx="6" fill="#16292b" stroke="var(--line)"/>
+        <text x="588" y="316" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="10">Powerhouse</text>
+
+        <!-- turbine -->
+        <g>
+          <circle cx="600" cy="350" r="26" fill="#0c1b1c" stroke="#34b3a3" stroke-width="3"/>
+          <g class="turbine-blade" id="turbineBlade" style="transform-origin:600px 350px;">
+            <line x1="600" y1="350" x2="600" y2="328" stroke="#34b3a3" stroke-width="4" stroke-linecap="round"/>
+            <line x1="600" y1="350" x2="619" y2="361" stroke="#34b3a3" stroke-width="4" stroke-linecap="round"/>
+            <line x1="600" y1="350" x2="581" y2="361" stroke="#34b3a3" stroke-width="4" stroke-linecap="round"/>
+            <line x1="600" y1="350" x2="600" y2="372" stroke="#34b3a3" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+            <line x1="600" y1="350" x2="581" y2="339" stroke="#34b3a3" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+            <line x1="600" y1="350" x2="619" y2="339" stroke="#34b3a3" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+          </g>
+          <circle cx="600" cy="350" r="6" fill="#f2efe6"/>
+          <text x="600" y="392" text-anchor="middle" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="9">Turbine</text>
+        </g>
+
+        <!-- shaft -->
+        <rect x="624" y="346" width="26" height="8" fill="#5b6bb8"/>
+
+        <!-- generator -->
+        <g>
+          <circle cx="676" cy="350" r="30" fill="#16292b" stroke="#f2a93c" stroke-width="3"/>
+          <g class="gen-coil" id="genCoil" style="transform-origin:676px 350px;">
+            <circle cx="676" cy="350" r="18" fill="none" stroke="#f2a93c" stroke-width="2" stroke-dasharray="10 6" opacity="0.8"/>
+          </g>
+          <path id="genSpark" class="spark" d="M672 340 L 666 352 L 674 352 L 668 364 L 684 346 L 676 346 Z" fill="#f2efe6" opacity="0.3" filter="url(#dglow)"/>
+          <text x="676" y="392" text-anchor="middle" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="9">Generator</text>
+        </g>
+
+        <!-- transformer + line up to tower -->
+        <path d="M706 350 L 740 350 L 740 250 L 790 200" fill="none" stroke="#5b6bb8" stroke-width="3"/>
+        <rect x="724" y="338" width="22" height="22" rx="3" fill="#1f3e3e" stroke="#5b6bb8"/>
+        <text x="735" y="378" text-anchor="middle" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="8">Step-up</text>
+
+        <!-- transmission tower -->
+        <g stroke="#9aa3a8" stroke-width="1.6" fill="none">
+          <polygon points="790,200 780,260 800,260" />
+          <line x1="772" y1="215" x2="808" y2="215"/>
+          <line x1="776" y1="235" x2="804" y2="235"/>
+        </g>
+        <g id="gridLines" stroke="#f2a93c" stroke-width="1.6">
+          <path d="M790 205 C 830 195, 860 210, 895 200"/>
+          <path d="M790 215 C 830 225, 860 215, 895 230"/>
+        </g>
+        <g id="gridPulse" class="flow-dash" stroke="#fff3da" stroke-width="1.4" opacity="0">
+          <path d="M790 205 C 830 195, 860 210, 895 200"/>
+        </g>
+
+        <!-- city skyline (grid demand) -->
+        <g id="citySkyline">
+          <rect x="850" y="260" width="14" height="50" fill="#16292b" stroke="#28403f"/>
+          <rect x="868" y="240" width="16" height="70" fill="#16292b" stroke="#28403f"/>
+          <rect x="888" y="270" width="12" height="40" fill="#16292b" stroke="#28403f"/>
+        </g>
+        <g id="cityWindows"></g>
+
+        <!-- river label -->
+        <text x="160" y="330" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="10">Catchment inflow ↓</text>
+      </svg>
+    </div>
+
+    <div class="rig-controls" style="margin-top:30px;">
+      <div class="preset-row">
+        <button class="preset-btn" data-flow="90" data-head="100" id="presetWinter">
+          <div class="pn">Winter · पुष–फागुन</div>
+          <div class="pt">Low flow</div>
+          <div class="pd">~90 m³/s — plant runs far under capacity, peak demand goes unmet.</div>
+        </button>
+        <button class="preset-btn active" data-flow="200" data-head="100" id="presetNormal">
+          <div class="pn">Normal</div>
+          <div class="pt">Design flow</div>
+          <div class="pd">~200 m³/s — turbine runs at its rated 200 MW capacity.</div>
+        </button>
+        <button class="preset-btn" data-flow="290" data-head="100" id="presetMonsoon">
+          <div class="pn">Monsoon · असार–भदौ</div>
+          <div class="pt">High flow</div>
+          <div class="pd">~290 m³/s — turbine maxes out, surplus is spilled over the dam.</div>
+        </button>
+      </div>
+
+      <div class="grid-2">
+        <div class="control">
+          <div class="control-label"><span class="name">River flow rate</span><span class="val" id="riverFlowVal">200 m³/s</span></div>
+          <input type="range" id="riverFlow" min="20" max="300" value="200" step="5">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name">Hydraulic head (reservoir height)</span><span class="val" id="headVal">100 m</span></div>
+          <input type="range" id="headSlider" min="60" max="140" value="100" step="5">
+        </div>
+      </div>
+
+      <div class="readout-row">
+        <div class="readout"><div class="rl">Power output</div><div class="rv" id="rOut">0 MW</div></div>
+        <div class="readout"><div class="rl">% of rated capacity</div><div class="rv" id="rPct">0%</div></div>
+        <div class="readout"><div class="rl">Water spilled</div><div class="rv" id="rSpill">0 m³/s</div></div>
+        <div class="readout"><div class="rl">Grid status</div><div class="rv" id="rStatus">—</div></div>
+      </div>
+      <p class="footnote">Illustrative model (P = ρ·g·Q·H·η), not an actual ERC asset — built to make the document's seasonal-imbalance and spilled-energy points tangible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTOR SNAPSHOT ============ -->
+<section id="snapshot">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Part C · सेक्टरको वर्तमान अवस्था</div>
+      <h2>The sector, in numbers you can move.</h2>
+      <p>Nepal's installed capacity has reached 4,105 MW after roughly 110 years of hydropower development. Drag the sliders to project the grid forward, or rebalance who generates the power.</p>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <div class="card">
+        <h3 style="font-size:1.2rem;">Reserve margin simulator</h3>
+        <p class="footnote" style="margin-top:6px;">FY 2081/82: installed capacity 4,105 MW against a peak demand of 2,134 MW. Project both forward with annual growth assumptions.</p>
+
+        <div class="control" style="margin-top:24px;">
+          <div class="control-label"><span class="name">Installed capacity growth / year</span><span class="val" id="capGrowthVal">8%</span></div>
+          <input type="range" id="capGrowth" min="0" max="20" value="8" step="1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name">Peak demand growth / year</span><span class="val" id="demGrowthVal">9%</span></div>
+          <input type="range" id="demGrowth" min="0" max="20" value="9" step="1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name">Years ahead</span><span class="val" id="yearsVal">5 yrs</span></div>
+          <input type="range" id="years" min="1" max="10" value="5" step="1">
+        </div>
+
+        <svg viewBox="0 0 520 200" width="100%" height="180" style="margin-top:18px;">
+          <g id="projLines"></g>
+          <line x1="0" y1="180" x2="520" y2="180" stroke="var(--line)" stroke-width="1"/>
+        </svg>
+        <div class="statline"><span>Reserve margin today</span><span class="v">+92.4%</span></div>
+        <div class="statline"><span>Reserve margin in <span id="yearsEcho">5</span> yrs</span><span class="v" id="marginOut">—</span></div>
+        <p class="footnote" id="marginNote"></p>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:1.2rem;">Who generates Nepal's electricity</h3>
+        <p class="footnote" style="margin-top:6px;">Of 13,966 GWh available on NEA's system in FY 2081/82 — rebalance the three sources (auto-normalised to 100%).</p>
+
+        <svg viewBox="0 0 200 200" width="170" height="170" style="margin:18px auto; display:block;">
+          <g id="donut" transform="rotate(-90 100 100)"></g>
+          <text x="100" y="96" text-anchor="middle" fill="var(--cream)" font-family="Fraunces" font-size="26" id="donutCenter">100%</text>
+          <text x="100" y="116" text-anchor="middle" fill="var(--mist-dim)" font-family="IBM Plex Mono" font-size="9">DOMESTIC</text>
+        </svg>
+
+        <div class="control">
+          <div class="control-label"><span class="name"><span style="color:#34b3a3">●</span> NEA &amp; subsidiaries</span><span class="val" id="neaVal">39.43%</span></div>
+          <input type="range" id="neaSlider" min="0" max="100" value="39.43" step="0.1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name"><span style="color:#f2a93c">●</span> Independent Power Producers</span><span class="val" id="ippVal">47.00%</span></div>
+          <input type="range" id="ippSlider" min="0" max="100" value="47" step="0.1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name"><span style="color:#d97456">●</span> Imported from India</span><span class="val" id="impVal">13.57%</span></div>
+          <input type="range" id="impSlider" min="0" max="100" value="13.57" step="0.1">
+        </div>
+        <button class="reset-btn" id="resetMix">Reset to FY 2081/82 actuals</button>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px;">
+      <div class="card">
+        <h3 style="font-size:1.1rem;">Build pipeline</h3>
+        <div class="statline"><span>Operating projects</span><span class="v">209 plants · 3,813 MW</span></div>
+        <div class="statline"><span>Survey licence issued</span><span class="v">~13,024 MW (242 hydro, 88 solar, 13 other, 4 wind)</span></div>
+        <div class="statline"><span>Survey done, awaiting construction licence</span><span class="v">58 projects · 9,089 MW</span></div>
+        <div class="statline"><span>Financial closure reached, under construction</span><span class="v">3,854 MW</span></div>
+        <div class="statline"><span>Still arranging financing</span><span class="v">5,235 MW</span></div>
+        <div class="statline"><span>Transmission (132kV+) operating / building</span><span class="v">5,457 / 1,442 circuit km</span></div>
+        <div class="statline"><span>Substation capacity operating / building</span><span class="v">13,050 / 2,699 MVA</span></div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:1.1rem;">Customers vs. revenue — who pays for the grid</h3>
+        <p class="footnote">Drag to see how 5.94M customers' revenue contribution compares to their headcount.</p>
+        <div id="custBars" style="margin-top:18px;"></div>
+        <div class="control" style="margin-top:18px;">
+          <div class="control-label"><span class="name">Total customer base</span><span class="val" id="custTotalVal">5.94M</span></div>
+          <input type="range" id="custTotal" min="3" max="9" value="5.94" step="0.01">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANDATE ============ -->
+<section id="mandate">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Part B · Mandate &amp; institutional design</div>
+      <h2>What the Commission is actually for.</h2>
+      <p>Established under the Electricity Regulation Commission Act, 2074 and Regulation, 2075 — an autonomous body created to make Nepal's power sector organised, transparent and competitive.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20" stroke="#34b3a3" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3 style="font-size:1.05rem; margin-top:16px;">Vision</h3>
+        <p class="footnote" style="font-size:0.85rem; color:var(--mist); margin-top:8px;">Become a distinguished, trusted, capable regulator for Nepal's power sector — protecting consumers and producers alike while strengthening the energy sector.</p>
+      </div>
+      <div class="card">
+        <div class="icon-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#34b3a3" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#34b3a3"/></svg></div>
+        <h3 style="font-size:1.05rem; margin-top:16px;">Tariff regulation</h3>
+        <p class="footnote" style="font-size:0.85rem; color:var(--mist); margin-top:8px;">Set fair, cost-reflective tariffs and service charges that protect consumers while letting producers and distributors recover legitimate cost — the Commission's single largest responsibility.</p>
+      </div>
+      <div class="card">
+        <div class="icon-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 19h16M7 19V9m5 10V5m5 14v-7" stroke="#34b3a3" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3 style="font-size:1.05rem; margin-top:16px;">Market &amp; open access</h3>
+        <p class="footnote" style="font-size:0.85rem; color:var(--mist); margin-top:8px;">End the single-buyer monopoly: guarantee third-party open access on the national grid and grow a wholesale power market.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px;">
+      <div class="card">
+        <h3 style="font-size:1.1rem;">Stakeholder engagement</h3>
+        <ul class="num-list">
+          <li><div><b>Public hearings</b> — mandatory before any tariff change or major policy shift, opened to consumers, industry, civil society and energy experts.</div></li>
+          <li><div><b>Draft &amp; comment</b> — new directives and reports are published in draft first, so stakeholders can weigh in before adoption.</div></li>
+          <li><div><b>Dispute resolution</b> — the Commission sits as a quasi-judicial bench (इजलास) for commercial and technical disputes among producers, distributors and consumers.</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1.1rem;">Institutional independence</h3>
+        <ul class="num-list">
+          <li><div><b>Statutory authority</b> — appointment and removal of commissioners follow fixed legal procedure and qualification criteria, insulating decisions from political pressure.</div></li>
+          <li><div><b>Financial &amp; operational autonomy</b> — the Commission runs its own regulatory functions, staffing and internal procedures independently, needed to stay neutral between consumer and producer interests.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGULATORY MODEL ============ -->
+<section id="model">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Part C, §1.3 · Choosing a model</div>
+      <h2>Why a hybrid model — segment by segment.</h2>
+      <p>Pure free markets and pure state monopoly are both judged unsuitable for Nepal's seasonal hydropower swings, geography and economy. Toggle between today's reality and the proposed hybrid model to see how each segment should move along the spectrum.</p>
+    </div>
+
+    <div class="card">
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="toggleCurrent">Current state</button>
+        <button class="toggle-btn" id="toggleHybrid">Proposed hybrid model</button>
+      </div>
+
+      <div id="spectrumGen">
+        <div class="control-label"><span class="name">Generation</span><span class="val mono" style="color:var(--mist)">deregulated, competitive</span></div>
+        <div class="spectrum-track">
+          <div class="spectrum-tag" id="genTag">Single buyer</div>
+          <div class="spectrum-dot" id="genDot" style="background:var(--teal);"></div>
+        </div>
+        <div class="spectrum-ends"><span>Government monopoly</span><span>Open competitive market</span></div>
+      </div>
+
+      <div id="spectrumTD" style="margin-top:38px;">
+        <div class="control-label"><span class="name">Transmission &amp; Distribution</span><span class="val mono" style="color:var(--mist)">natural monopoly, centrally regulated</span></div>
+        <div class="spectrum-track">
+          <div class="spectrum-tag" id="tdTag">NEA owned grid</div>
+          <div class="spectrum-dot" id="tdDot" style="background:var(--indigo);"></div>
+        </div>
+        <div class="spectrum-ends"><span>Government monopoly</span><span>Open competitive market</span></div>
+      </div>
+
+      <p class="footnote" style="margin-top:28px;">Reading the hybrid model: generation opens up to private and foreign capital under transparent licensing and PPAs, while transmission &amp; distribution — too capital-intensive to duplicate — stay centrally regulated, but with mandatory third-party open access. An independent commission and cross-border trading alignment hold the whole system together.</p>
+    </div>
+
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="card">
+        <span class="pill">Command &amp; control</span>
+        <p class="footnote" style="margin-top:12px;">Direct government control of price and entry. Predictable, but slow to attract capital or efficiency.</p>
+      </div>
+      <div class="card">
+        <span class="pill">Self-regulation</span>
+        <p class="footnote" style="margin-top:12px;">Industry sets its own rules. Lightweight, but weak on consumer protection without a strong enforcer.</p>
+      </div>
+      <div class="card" style="border-color:var(--teal);">
+        <span class="pill" style="border-color:var(--teal); color:var(--teal);">Incentive-based — chosen for Nepal</span>
+        <p class="footnote" style="margin-top:12px;">KPI targets with rewards for hitting them and penalties for missing — used for NEA's own performance regulation below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIORITIES / GANTT ============ -->
+<section id="priorities">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Part D · शीर्ष तीन प्राथमिकता</div>
+      <h2>Three priorities, one five-year runway.</h2>
+      <p>The plan's top three regulatory agendas, each broken into phases. Stretch or compress a priority's duration to see how the roadmap shifts — dates are in the Bikram Sambat (B.S.) calendar the Commission itself uses.</p>
+    </div>
+
+    <div class="tabbar">
+      <button class="tabbtn active" data-tab="p1">01 · Open Access &amp; Wheeling Charge</button>
+      <button class="tabbtn" data-tab="p2">02 · Wholesale Power Market</button>
+      <button class="tabbtn" data-tab="p3">03 · Performance-Based Regulation</button>
+    </div>
+
+    <div class="card" id="tabPanel">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="card" style="margin-top:24px;">
+      <h3 style="font-size:1.1rem; margin-bottom:18px;">Master roadmap (B.S. 2083 → 2088)</h3>
+      <div class="gantt-axis"><div></div>
+        <div class="gantt-axis-ticks">
+          <span>2083</span><span>2084</span><span>2085</span><span>2086</span><span>2087</span><span>2088</span>
+        </div>
+      </div>
+      <div class="gantt-row">
+        <div class="mono" style="font-size:0.78rem; color:var(--mist);">01 · Open access</div>
+        <div class="gantt-track"><div class="gantt-bar" id="bar1" style="background:var(--teal); color:var(--ink);"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="mono" style="font-size:0.78rem; color:var(--mist);">02 · Wholesale market</div>
+        <div class="gantt-track"><div class="gantt-bar" id="bar2" style="background:var(--amber); color:var(--ink);"></div></div>
+      </div>
+      <div class="gantt-row">
+        <div class="mono" style="font-size:0.78rem; color:var(--mist);">03 · Performance-based reg.</div>
+        <div class="gantt-track"><div class="gantt-bar" id="bar3" style="background:var(--indigo); color:var(--cream);"></div></div>
+      </div>
+
+      <div class="control" style="margin-top:24px;">
+        <div class="control-label"><span class="name">Stretch / compress all durations</span><span class="val" id="ganttScaleVal">1.0×</span></div>
+        <input type="range" id="ganttScale" min="0.5" max="2" value="1" step="0.1">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERFORMANCE LAB / KPI ============ -->
+<section id="pbr">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Priority 03 · Performance-Based Regulation</div>
+      <h2>Set NEA's targets. See the verdict.</h2>
+      <p>Under PBR, the Commission scores Nepal Electricity Authority against KPIs each year — hit them, and NEA earns tariff or financial incentives; miss them, and penalties apply. Move the sliders to set the targets and watch the scorecard react.</p>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <div class="card">
+        <div class="control">
+          <div class="control-label"><span class="name">Annual loss reduction target</span><span class="val" id="lossVal">2.0%</span></div>
+          <input type="range" id="lossSlider" min="0" max="5" value="2" step="0.1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name">Efficiency improvement target</span><span class="val" id="effVal">5%</span></div>
+          <input type="range" id="effSlider" min="0" max="15" value="5" step="1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name">Revenue growth target</span><span class="val" id="revVal">10%</span></div>
+          <input type="range" id="revSlider" min="0" max="20" value="10" step="1">
+        </div>
+        <div class="control">
+          <div class="control-label"><span class="name">Audit / बेरुजु clearance rate</span><span class="val" id="auditVal">100%</span></div>
+          <input type="range" id="auditSlider" min="0" max="100" value="100" step="5">
+        </div>
+        <p class="footnote">Source targets from the plan: loss reduction 2%/yr, efficiency +5–10%, revenue +10%, bekaruju (financial irregularity) clearance 100% — plus continuous SAIDI/SAIFI reliability gains and customer-service standards.</p>
+      </div>
+
+      <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 220 130" width="240" id="gaugeSvg">
+          <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="var(--surface3)" stroke-width="16" stroke-linecap="round"/>
+          <path id="gaugeArc" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="var(--teal)" stroke-width="16" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283"/>
+        </svg>
+        <div class="gauge-readout" id="gaugeReadout">0</div>
+        <div class="gauge-label">Composite performance score</div>
+        <div id="verdictBadge" style="margin-top:16px;"></div>
+        <p class="footnote" id="verdictText" style="text-align:center; max-width:300px; margin-top:10px;"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INNOVATION ============ -->
+<section id="innovation">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Part ङ · नवाचार र उदीयमान मुद्दा</div>
+      <h2>What's arriving next on the grid.</h2>
+      <p>Four technologies the plan flags as reshaping the sector, and three emerging risks regulation hasn't fully caught up with yet.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="card">
+        <span class="badge incentive">Innovation</span>
+        <h3 style="font-size:1rem; margin-top:14px;">Smart grid &amp; metering</h3>
+        <p class="footnote" style="margin-top:8px;">NEA is replacing conventional meters nationwide — enabling real-time consumption data, faster leak detection and remote connect/disconnect.</p>
+      </div>
+      <div class="card">
+        <span class="badge incentive">Innovation</span>
+        <h3 style="font-size:1rem; margin-top:14px;">Battery &amp; pumped storage</h3>
+        <p class="footnote" style="margin-top:8px;">Run-of-river hydropower can't meet winter peaks alone — BESS and pumped storage bank wet-season surplus for dry-season demand.</p>
+      </div>
+      <div class="card">
+        <span class="badge incentive">Innovation</span>
+        <h3 style="font-size:1rem; margin-top:14px;">EV charging &amp; smart load</h3>
+        <p class="footnote" style="margin-top:8px;">A fast-growing EV fleet is fed by a national network of smart charging stations that discounts off-peak hours to balance grid load.</p>
+      </div>
+      <div class="card">
+        <span class="badge incentive">Innovation</span>
+        <h3 style="font-size:1rem; margin-top:14px;">Green hydrogen</h3>
+        <p class="footnote" style="margin-top:8px;">Early-stage pilots use spilled monsoon-season electricity to produce hydrogen — a future path to fertiliser and industrial fuel self-sufficiency.</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:22px;">
+      <div class="card">
+        <span class="badge penalty">Emerging risk</span>
+        <h3 style="font-size:1rem; margin-top:14px;">Cyber security &amp; data privacy</h3>
+        <p class="footnote" style="margin-top:8px;">Smart meters, online billing and SCADA systems widen the attack surface — the plan calls for a national cybersecurity protocol for the grid and the Load Despatch Centre.</p>
+      </div>
+      <div class="card">
+        <span class="badge penalty">Emerging risk</span>
+        <h3 style="font-size:1rem; margin-top:14px;">Climate &amp; disaster exposure</h3>
+        <p class="footnote" style="margin-top:8px;">Floods, landslides and glacial lake outburst floods (GLOF) threaten hydropower assets — climate-resilient design and mandatory insurance are proposed for new builds.</p>
+      </div>
+      <div class="card">
+        <span class="badge penalty">Emerging risk</span>
+        <h3 style="font-size:1rem; margin-top:14px;">Energy mix &amp; dynamic tariffs</h3>
+        <p class="footnote" style="margin-top:8px;">Over-reliance on hydro causes winter shortages — growing solar and wind into the mix needs a time-of-day / dynamic tariff framework to keep the grid balanced.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RISK ============ -->
+<section id="risk">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Part D, §6 · Challenges &amp; mitigation</div>
+      <h2>What could go wrong — and the plan's answer.</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card risk-card">
+        <h3 style="font-size:1rem;">Institutional resistance</h3>
+        <p class="footnote" style="margin-top:10px;">NEA may resist open access and wholesale market reform, fearing the loss of its single-buyer monopoly.</p>
+        <div class="chip-row"><span class="chip">Mitigation: high-level policy dialogue via the Ministry, building confidence in long-term financial sustainability</span></div>
+      </div>
+      <div class="card risk-card">
+        <h3 style="font-size:1rem;">Technical capacity gap</h3>
+        <p class="footnote" style="margin-top:10px;">Neither the Commission nor NEA currently has the staff to run a wholesale market or sophisticated trading software.</p>
+        <div class="chip-row"><span class="chip">Mitigation: donor-funded training (World Bank, ADB) with exposure to power exchanges in India and Europe</span></div>
+      </div>
+      <div class="card risk-card">
+        <h3 style="font-size:1rem;">Political &amp; policy instability</h3>
+        <p class="footnote" style="margin-top:10px;">Frequent government change risks shifting energy policy priorities mid-implementation.</p>
+        <div class="chip-row"><span class="chip">Mitigation: lock these reforms into a new Electricity Act so they survive leadership change</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand"><span class="dot"></span> ERC NEPAL</div>
+      <p style="margin-top:10px;">Built as an interactive companion to the business action plan submitted by Narendra Singh Bhandari for the vacant Commission Member position, Electricity Regulatory Commission, Nepal. All figures are sourced from the submitted document (FY 2081/82 data, NEA &amp; DoED statistics) and are adjustable for exploration — not official Commission projections.</p>
+    </div>
+    <div class="footnote mono">विधुत नियमन आयोग ऐन, २०७४ · नियमावली, २०७५</div>
+  </div>
+</footer>
+
+<script>
+/* ============ helpers ============ */
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d=0) => Number(n).toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+
+/* ============ reserve margin simulator ============ */
+const BASE_CAP = 4105, BASE_DEM = 2134;
+const capGrowth = $('capGrowth'), demGrowth = $('demGrowth'), yearsSlider = $('years');
+function drawProjection(){
+  const cg = +capGrowth.value/100, dg = +demGrowth.value/100, yrs = +yearsSlider.value;
+  $('capGrowthVal').textContent = capGrowth.value + '%';
+  $('demGrowthVal').textContent = demGrowth.value + '%';
+  $('yearsVal').textContent = yrs + (yrs===1 ? ' yr' : ' yrs');
+  $('yearsEcho').textContent = yrs;
+
+  const svg = $('projLines');
+  svg.innerHTML = '';
+  const W=520,H=180,pad=10;
+  let capPts=[], demPts=[];
+  let maxV = 0;
+  for(let y=0;y<=yrs;y++){
+    const cap = BASE_CAP*Math.pow(1+cg,y);
+    const dem = BASE_DEM*Math.pow(1+dg,y);
+    capPts.push(cap); demPts.push(dem);
+    maxV = Math.max(maxV,cap,dem);
+  }
+  maxV *= 1.08;
+  const xs = (i)=> pad + (W-2*pad) * (i/Math.max(yrs,1));
+  const ys = (v)=> H-10 - (H-30) * (v/maxV);
+
+  function pathFor(pts, color){
+    let d = pts.map((v,i)=> (i===0?'M':'L') + xs(i).toFixed(1) + ' ' + ys(v).toFixed(1)).join(' ');
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', d); p.setAttribute('fill','none'); p.setAttribute('stroke', color);
+    p.setAttribute('stroke-width','2.5'); p.setAttribute('stroke-linecap','round');
+    svg.appendChild(p);
+    pts.forEach((v,i)=>{
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', xs(i)); c.setAttribute('cy', ys(v)); c.setAttribute('r', i===pts.length-1?4:2);
+      c.setAttribute('fill', color);
+      svg.appendChild(c);
+    });
+  }
+  pathFor(capPts, '#34b3a3');
+  pathFor(demPts, '#d97456');
+
+  const label1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  label1.setAttribute('x', xs(yrs)-4); label1.setAttribute('y', ys(capPts[yrs])-10);
+  label1.setAttribute('fill','#34b3a3'); label1.setAttribute('font-family','IBM Plex Mono'); label1.setAttribute('font-size','10'); label1.setAttribute('text-anchor','end');
+  label1.textContent = 'Capacity ' + fmt(capPts[yrs]) + ' MW';
+  svg.appendChild(label1);
+
+  const label2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  label2.setAttribute('x', xs(yrs)-4); label2.setAttribute('y', ys(demPts[yrs])+16);
+  label2.setAttribute('fill','#d97456'); label2.setAttribute('font-family','IBM Plex Mono'); label2.setAttribute('font-size','10'); label2.setAttribute('text-anchor','end');
+  label2.textContent = 'Demand ' + fmt(demPts[yrs]) + ' MW';
+  svg.appendChild(label2);
+
+  const margin = (capPts[yrs]-demPts[yrs])/demPts[yrs]*100;
+  $('marginOut').textContent = (margin>=0?'+':'') + margin.toFixed(1) + '%';
+  $('marginOut').style.color = margin >= 30 ? '#34b3a3' : (margin>=0 ? '#f2a93c' : '#d97456');
+  $('marginNote').textContent = margin >= 30
+    ? 'Comfortable surplus — strong position for cross-border export.'
+    : (margin >= 0
+        ? 'Margin is tightening — wholesale market and demand-side tools become important.'
+        : 'Demand would overtake supply — a winter capacity shortfall risk.');
+}
+[capGrowth,demGrowth,yearsSlider].forEach(el=>el.addEventListener('input', drawProjection));
+drawProjection();
+
+/* ============ generation mix donut ============ */
+const neaSlider=$('neaSlider'), ippSlider=$('ippSlider'), impSlider=$('impSlider');
+function normalizeFrom(changed){
+  let nea=+neaSlider.value, ipp=+ippSlider.value, imp=+impSlider.value;
+  let sum = nea+ipp+imp;
+  if(sum===0){ nea=ipp=imp=33.33; }
+  else if(Math.abs(sum-100) > 0.05){
+    const others = ['nea','ipp','imp'].filter(k=>k!==changed);
+    const remain = 100 - (changed==='nea'?nea:changed==='ipp'?ipp:imp);
+    const otherVals = others.map(k=> k==='nea'?nea:k==='ipp'?ipp:imp);
+    const otherSum = otherVals.reduce((a,b)=>a+b,0);
+    others.forEach((k,i)=>{
+      let nv = otherSum>0 ? remain * (otherVals[i]/otherSum) : remain/others.length;
+      if(k==='nea') nea=nv; if(k==='ipp') ipp=nv; if(k==='imp') imp=nv;
+    });
+  }
+  neaSlider.value = nea.toFixed(2); ippSlider.value = ipp.toFixed(2); impSlider.value = imp.toFixed(2);
+  drawDonut(nea,ipp,imp);
+}
+function drawDonut(nea,ipp,imp){
+  $('neaVal').textContent = nea.toFixed(2)+'%';
+  $('ippVal').textContent = ipp.toFixed(2)+'%';
+  $('impVal').textContent = imp.toFixed(2)+'%';
+  const g = $('donut'); g.innerHTML='';
+  const r=80, cx=100, cy=100, circ = 2*Math.PI*r;
+  const segs = [ ['#34b3a3', nea], ['#f2a93c', ipp], ['#d97456', imp] ];
+  let offset = 0;
+  segs.forEach(([color,pct])=>{
+    const len = circ * (pct/100);
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',r);
+    c.setAttribute('fill','none'); c.setAttribute('stroke',color); c.setAttribute('stroke-width','24');
+    c.setAttribute('stroke-dasharray', len+' '+(circ-len));
+    c.setAttribute('stroke-dashoffset', -offset);
+    g.appendChild(c);
+    offset += len;
+  });
+  $('donutCenter').textContent = (nea+ipp).toFixed(0)+'%';
+}
+['nea','ipp','imp'].forEach(k=>{
+  const el = k==='nea'?neaSlider:k==='ipp'?ippSlider:impSlider;
+  el.addEventListener('input', ()=>normalizeFrom(k));
+});
+$('resetMix').addEventListener('click', ()=>{
+  neaSlider.value=39.43; ippSlider.value=47; impSlider.value=13.57;
+  drawDonut(39.43,47,13.57);
+});
+drawDonut(39.43,47,13.57);
+
+/* ============ customer bars ============ */
+const custClasses = [
+  {name:'Domestic households', customers:91.54, revenue:40.00, color:'#34b3a3'},
+  {name:'Industrial', customers:1.26, revenue:35.72, color:'#f2a93c'},
+  {name:'Other (commercial/services)', customers:7.20, revenue:24.28, color:'#d97456'},
+];
+function drawCustBars(){
+  const total = +$('custTotal').value;
+  $('custTotalVal').textContent = total.toFixed(2)+'M';
+  const wrap = $('custBars'); wrap.innerHTML='';
+  custClasses.forEach(c=>{
+    const customersCount = (c.customers/100*total).toFixed(2);
+    const row = document.createElement('div');
+    row.style.marginBottom='16px';
+    row.innerHTML = `
+      <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px;">
+        <span style="color:var(--mist)">${c.name}</span>
+        <span class="mono" style="color:var(--cream)">${customersCount}M customers</span>
+      </div>
+      <div class="barwrap"><div class="barfill" style="width:${c.customers}%; background:${c.color};"></div></div>
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; margin-top:3px;">
+        <span class="footnote">${c.customers}% of customers</span>
+        <span class="footnote">contributes ${c.revenue}% of revenue</span>
+      </div>`;
+    wrap.appendChild(row);
+  });
+}
+$('custTotal').addEventListener('input', drawCustBars);
+drawCustBars();
+
+/* ============ regulatory spectrum toggle ============ */
+function setSpectrum(mode){
+  const genDot=$('genDot'), tdDot=$('tdDot'), genTag=$('genTag'), tdTag=$('tdTag');
+  if(mode==='current'){
+    genDot.style.left='18%'; tdDot.style.left='10%';
+    genTag.textContent='Single buyer (NEA only)'; genTag.style.left='18%';
+    tdTag.textContent='NEA-owned, closed grid'; tdTag.style.left='10%';
+  } else {
+    genDot.style.left='84%'; tdDot.style.left='34%';
+    genTag.textContent='Open, competitive PPAs'; genTag.style.left='84%';
+    tdTag.textContent='Regulated + open access'; tdTag.style.left='34%';
+  }
+}
+$('toggleCurrent').addEventListener('click', ()=>{ $('toggleCurrent').classList.add('active'); $('toggleHybrid').classList.remove('active'); setSpectrum('current'); });
+$('toggleHybrid').addEventListener('click', ()=>{ $('toggleHybrid').classList.add('active'); $('toggleCurrent').classList.remove('active'); setSpectrum('hybrid'); });
+setSpectrum('current');
+
+/* ============ priorities tab content ============ */
+const tabData = {
+  p1: {
+    title:'Open Access & Wheeling Charge',
+    rationale:'Today, independent power producers can only sell to NEA. Open access grants any producer or bulk consumer the legal and technical right to move power across NEA-owned transmission and distribution lines — for a wheeling charge.',
+    phases:['Draft legal framework: Open Access Regulations & Wheeling Tariff Guidelines, with a minimum demand threshold (e.g. 1 MW+) to qualify.','Revise Grid Code & Distribution Code to set technical standards for safe third-party power flow.','Calculate and announce per-unit wheeling charge and system operation charge by voltage level (132kV / 66kV / 33kV).','Pilot the scheme on a few large corridors or industries before national rollout.'],
+    timeline:'12 months · Asar 2083 – Jestha 2084',
+    lead:'Electricity Regulatory Commission (ERC)',
+    support:'NEA · National Power Transmission Grid Co. (RPGCL) · IPPAN'
+  },
+  p2: {
+    title:'Wholesale Power Market',
+    rationale:"Nepal currently runs a single-buyer, single-seller model. With wet-season surplus and dry-season scarcity, a wholesale market lets producers trade directly on short-term bids — like India's Energy Exchange — letting the market, not just PPAs, set the price.",
+    phases:['Identify and legally establish an independent Market Operator / Power Exchange company.','Draft trading rules: bidding process, settlement mechanism, risk management.','Modernise the Load Despatch Centre (LDC) with real-time data and matching software.','Link the Nepali wholesale market to Indian and Bangladeshi markets via cross-border guidelines for 24/7 trading.'],
+    timeline:'60 months · Asar 2083 – Jestha 2088',
+    lead:'ERC · Ministry of Energy, Water Resources & Irrigation',
+    support:'NEA · private power exchange promoters'
+  },
+  p3: {
+    title:'Performance-Based Regulation of NEA',
+    rationale:"NEA is the backbone of the energy market, but technical losses, customer service and irregularity (bekaruju) management still need work. PBR ties NEA's tariff and financial incentives to clear, measurable KPIs instead of rate-setting alone.",
+    phases:['Set KPIs: system losses ↓2%/yr, customer satisfaction & complaint turnaround, SAIDI/SAIFI reliability gains, efficiency +5–10%.','Design the incentive/penalty framework — extra margin or tariff flexibility for beating targets, penalties for missing them.','Make quarterly technical & financial audits of NEA subsidiaries and distribution centres mandatory.'],
+    timeline:'48 months · Asar 2083 – Mangsir 2087',
+    lead:'Electricity Regulatory Commission (ERC)',
+    support:'NEA · Office of the Auditor General'
+  }
+};
+function renderTab(key){
+  const d = tabData[key];
+  $('tabPanel').innerHTML = `
+    <h3 style="font-size:1.3rem;">${d.title}</h3>
+    <p style="color:var(--mist); margin-top:12px; max-width:760px;">${d.rationale}</p>
+    <div class="grid-2" style="margin-top:24px;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">Implementation phases</div>
+        <ul class="num-list">${d.phases.map(p=>`<li><div>${p}</div></li>`).join('')}</ul>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">Timeline &amp; ownership</div>
+        <div class="statline"><span>Duration</span><span class="v">${d.timeline}</span></div>
+        <div class="statline"><span>Lead agency</span><span class="v">${d.lead}</span></div>
+        <div class="statline"><span>Supporting agencies</span><span class="v">${d.support}</span></div>
+      </div>
+    </div>`;
+}
+document.querySelectorAll('.tabbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTab(btn.dataset.tab);
+  });
+});
+renderTab('p1');
+
+/* ============ gantt ============ */
+// timeline span: BS 2083.0 -> 2088.0 across the 6-year axis (60 months wide)
+const ganttDefs = [
+  {id:'bar1', startMonth:0, baseMonths:12, color:'var(--teal)', label:'12 mo'},
+  {id:'bar2', startMonth:0, baseMonths:60, color:'var(--amber)', label:'60 mo'},
+  {id:'bar3', startMonth:0, baseMonths:48, color:'var(--indigo)', label:'48 mo'},
+];
+const TOTAL_MONTHS = 60;
+function drawGantt(){
+  const scale = +$('ganttScale').value;
+  $('ganttScaleVal').textContent = scale.toFixed(1)+'×';
+  ganttDefs.forEach(g=>{
+    const months = Math.min(g.baseMonths*scale, TOTAL_MONTHS*1.15);
+    const widthPct = Math.min(100, (months/TOTAL_MONTHS)*100);
+    const el = $(g.id);
+    el.style.width = widthPct+'%';
+    el.style.left = '0%';
+    el.style.background = g.color;
+    el.textContent = Math.round(months)+' months';
+  });
+}
+$('ganttScale').addEventListener('input', drawGantt);
+drawGantt();
+
+/* ============ KPI / PBR gauge ============ */
+const lossSlider=$('lossSlider'), effSlider=$('effSlider'), revSlider=$('revSlider'), auditSlider=$('auditSlider');
+function drawGauge(){
+  const loss=+lossSlider.value, eff=+effSlider.value, rev=+revSlider.value, audit=+auditSlider.value;
+  $('lossVal').textContent = loss.toFixed(1)+'%';
+  $('effVal').textContent = eff+'%';
+  $('revVal').textContent = rev+'%';
+  $('auditVal').textContent = audit+'%';
+
+  // composite score 0-100 weighted against the plan's reference targets
+  const lossScore = Math.min(100, (loss/2)*100) ;       // ref 2%
+  const effScore = Math.min(100, (eff/10)*100);          // ref up to 10%
+  const revScore = Math.min(100, (rev/10)*100);           // ref 10%
+  const auditScore = audit;                                // ref 100%
+  const score = (lossScore*0.3 + effScore*0.25 + revScore*0.2 + auditScore*0.25);
+
+  $('gaugeReadout').textContent = Math.round(score);
+  const circLen = 283;
+  const offset = circLen - (circLen*score/100);
+  const arc = $('gaugeArc');
+  arc.setAttribute('stroke-dashoffset', offset);
+  const color = score>=85 ? '#34b3a3' : score>=55 ? '#f2a93c' : '#d97456';
+  arc.setAttribute('stroke', color);
+
+  const badge = $('verdictBadge'), text = $('verdictText');
+  if(score>=85){
+    badge.innerHTML = '<span class="badge incentive">Incentive zone</span>';
+    text.textContent = "NEA meets or exceeds the plan's reference KPIs — eligible for tariff flexibility and financial incentives.";
+  } else if(score>=55){
+    badge.innerHTML = '<span class="badge neutral">Watch zone</span>';
+    text.textContent = 'Partial performance — on track for some targets, short on others. No automatic incentive or penalty.';
+  } else {
+    badge.innerHTML = '<span class="badge penalty">Penalty zone</span>';
+    text.textContent = "Performance falls well short of the plan's reference KPIs — penalties would apply under the PBR framework.";
+  }
+}
+[lossSlider,effSlider,revSlider,auditSlider].forEach(el=>el.addEventListener('input', drawGauge));
+drawGauge();
+
+/* ============ dam / turbine / generator rig ============ */
+const RATED_MW = 200;            // turbine design capacity
+const EFF = 0.85;                // overall efficiency
+const K = 9.81 * EFF / 1000;     // P(MW) = K * Q * H
+const riverFlow = $('riverFlow'), headSlider = $('headSlider');
+const presets = {
+  presetWinter:  {flow:90,  head:100},
+  presetNormal:  {flow:200, head:100},
+  presetMonsoon: {flow:290, head:100},
+};
+function setPresetActive(id){
+  Object.keys(presets).forEach(k=> $(k).classList.toggle('active', k===id));
+}
+Object.keys(presets).forEach(id=>{
+  $(id).addEventListener('click', ()=>{
+    riverFlow.value = presets[id].flow;
+    headSlider.value = presets[id].head;
+    setPresetActive(id);
+    drawRig();
+  });
+});
+
+function buildCityWindows(){
+  const g = $('cityWindows');
+  g.innerHTML = '';
+  const towers = [
+    {x:850,y:260,w:14,h:50, rows:5,cols:2},
+    {x:868,y:240,w:16,h:70, rows:7,cols:2},
+    {x:888,y:270,w:12,h:40, rows:4,cols:1},
+  ];
+  towers.forEach(t=>{
+    for(let r=0;r<t.rows;r++){
+      for(let c=0;c<t.cols;c++){
+        const wx = t.x + 3 + c*(t.w/t.cols);
+        const wy = t.y + 6 + r*((t.h-10)/t.rows);
+        const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rect.setAttribute('x', wx); rect.setAttribute('y', wy);
+        rect.setAttribute('width', Math.max(2.5,(t.w/t.cols)-3)); rect.setAttribute('height', 3.4);
+        rect.setAttribute('fill', '#f2a93c'); rect.classList.add('city-window');
+        rect.setAttribute('opacity', '0.08');
+        g.appendChild(rect);
+      }
+    }
+  });
+}
+buildCityWindows();
+
+function drawRig(){
+  const flow = +riverFlow.value, head = +headSlider.value;
+  $('riverFlowVal').textContent = flow + ' m³/s';
+  $('headVal').textContent = head + ' m';
+
+  const ratedFlow = RATED_MW / (K * head);          // m3/s needed to hit rated MW at this head
+  const usedFlow = Math.min(flow, ratedFlow);
+  const spilled = Math.max(0, flow - ratedFlow);
+  const power = Math.min(RATED_MW, K * usedFlow * head);
+  const pct = power / RATED_MW * 100;
+
+  $('rOut').textContent = power.toFixed(0) + ' MW';
+  $('rPct').textContent = pct.toFixed(0) + '%';
+  $('rSpill').textContent = spilled.toFixed(0) + ' m³/s';
+
+  const rOutEl = $('rOut'), rPctEl = $('rPct'), rStatus = $('rStatus');
+  rOutEl.className = 'rv ' + (pct>=95?'ok':pct>=50?'tight':'warn');
+  rPctEl.className = 'rv ' + (pct>=95?'ok':pct>=50?'tight':'warn');
+
+  if(spilled > 1){
+    rStatus.textContent = 'Spilling';
+    rStatus.className = 'rv tight';
+  } else if(pct < 50){
+    rStatus.textContent = 'Under capacity';
+    rStatus.className = 'rv warn';
+  } else {
+    rStatus.textContent = 'At capacity';
+    rStatus.className = 'rv ok';
+  }
+
+  // turbine / generator spin speed: faster flow = faster spin (shorter duration)
+  const flowFrac = Math.max(0.12, usedFlow/ratedFlow);
+  const blade = $('turbineBlade'), coil = $('genCoil');
+  const dur = (4.4 / flowFrac).toFixed(2) + 's';
+  blade.style.animationDuration = dur;
+  coil.style.animationDuration = (parseFloat(dur)*0.62).toFixed(2)+'s';
+  blade.style.animationPlayState = power>0.5 ? 'running' : 'paused';
+  coil.style.animationPlayState = power>0.5 ? 'running' : 'paused';
+
+  // penstock flow dash speed
+  const pf = $('penstockFlow');
+  pf.style.animationDuration = (1.6/flowFrac).toFixed(2)+'s';
+  pf.style.opacity = power>0.5 ? 0.85 : 0.15;
+
+  // generator spark
+  $('genSpark').style.opacity = power>0.5 ? '' : 0;
+  $('genSpark').style.animationPlayState = power>0.5 ? 'running' : 'paused';
+
+  // spillway gate + overflow water
+  const gate = $('spillGate'), sw = $('spillWater'), sl1=$('spillLabel'), sl2=$('spillLabel2');
+  if(spilled > 1){
+    gate.setAttribute('transform','translate(0,-12)');
+    sw.setAttribute('stroke-width', Math.min(10, 3 + spilled/20));
+    sw.setAttribute('opacity', '0.85');
+    sl1.setAttribute('opacity','0.9'); sl2.setAttribute('opacity','0.9');
+  } else {
+    gate.setAttribute('transform','translate(0,0)');
+    sw.setAttribute('opacity','0');
+    sl1.setAttribute('opacity','0'); sl2.setAttribute('opacity','0');
+  }
+
+  // grid line current + city window glow scale with pct
+  $('gridPulse').style.opacity = power>0.5 ? 0.9 : 0;
+  $('gridPulse').style.animationDuration = (1.6/flowFrac).toFixed(2)+'s';
+  document.querySelectorAll('.city-window').forEach((w,i)=>{
+    const lit = Math.random() < (pct/100);
+    w.setAttribute('opacity', power>0.5 ? (lit ? (0.55+Math.random()*0.4).toFixed(2) : 0.08) : 0.05);
+  });
+}
+[riverFlow, headSlider].forEach(el=> el.addEventListener('input', ()=>{
+  setPresetActive(null);
+  drawRig();
+}));
+drawRig();
+setInterval(()=>{ // gentle city-window twinkle so the grid feels alive
+  const pct = parseFloat($('rPct').textContent);
+  if(pct>5){
+    document.querySelectorAll('.city-window').forEach(w=>{
+      if(Math.random()<0.15) w.setAttribute('opacity', (Math.random()*(pct/100)*0.8+0.08).toFixed(2));
+    });
+  }
+}, 900);
+</script>
+</body>
+</html>
